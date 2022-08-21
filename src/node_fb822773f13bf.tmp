@@ -1,0 +1,78 @@
+import {createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg'
+
+
+import './App.css';
+import {
+  useState,
+  useEffect
+} from 'react'
+
+const ffmpeg = createFFmpeg({log: true})
+
+function App() {
+  const [start, setStart] = useState()
+  const [end, setEnd] = useState()
+  const [vid, setVid] = useState()
+
+
+  async function checkDuration(){
+    
+    
+    await ffmpeg.load();
+    ffmpeg.FS('writeFile', 'video.mp4', await fetchFile('/video.mp4'));
+    await ffmpeg.run('-i', 'video.mp4', '2>&1', '|', 'grep', "Duration");
+    
+    await ffmpeg.run('-i', 'video.mp4', '-ss', '00:00:10', '-to', '00:00:30', 'newvideo.mp4');
+    const data = ffmpeg.FS('readFile', 'newvideo.mp4')
+    const url = await URL.createObjectURL(new Blob([data.buffer], {type:'video/mp4'})) 
+    setVid(url)
+    console.log("AHAHAHHA",url)
+    
+  }
+
+  useEffect(() => {
+    
+    
+    // checkDuration().then(()=> {
+      
+    // })
+    
+  }, [])
+  
+  return (
+    <div className="App">
+      
+      
+      <video id="myVideo" width="750" height="500" controls >
+        <source src="./video.mp4" type="video/mp4" onChange={()=>}/>
+      </video>
+
+      <p>Start: {start}</p>
+      <div className="sliderContainerStart">
+        <input type="range" min="1" max="100"className="sliderStart" id="myRange"
+          value={start} 
+          onChange={e => {
+              setStart(e.target.value)
+          }}
+        />
+      </div>
+
+
+      <p>End: {end}</p>
+      <div className="sliderContainerEnd">
+        <input type="range" min="1" max="100" class="sliderEnd" id="myRange"
+          value={end} 
+          onChange={e => {
+              setEnd(e.target.value)
+          }}
+        />
+      </div>
+
+      <video src={vid} width="750" height="500" controls >
+        
+      </video>
+    </div>
+  )
+}
+
+export default App;
