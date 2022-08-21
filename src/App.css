@@ -15,13 +15,27 @@
 }
 
 .mainContainer {
-  margin-top: 5%;
-
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 
-  background-color: rgb(34, 34, 34);
+  
+  background: #2d2d2d;
+}
+
+.previewContainer {
+  margin-top: 2%;
+  /* padding: 2% 0%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  width: 90%;
+  height: 95%;
+  
+  border-radius: 40px;
+  background-color: rgb(17, 17, 17);
 }
 
 .editorContainer {
@@ -41,6 +55,7 @@
   justify-content: start;
   align-items: center;
 
+  /* background-color:black; */
   width: 60%;
   height: 100vh;
 }
@@ -50,9 +65,16 @@
   height: 60px;
 
   border: 0.5px solid white;
+  border-radius: 5px; 
+
   background-color: transparent;
+
   color: white;
   letter-spacing: 5px;
+  font-weight: 100;
+  font-size: 20px;
+
+
 }
 .btn:hover {
   opacity: 0.7;
@@ -81,4 +103,96 @@
 
 .in:hover {
   opacity: 0.6;
+
+ 
 }
+
+
+.inputVideo::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.inputVideo {
+  width: 250px;
+  color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.inputVideo::before {
+
+  content: 'ADD VIDEO';
+  color: white;
+  display: inline-block;
+  background: transparent;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 3px;
+  padding: 15px 21%;
+  outline: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  letter-spacing: 5px;
+  font-weight: 100;
+  font-size: 20px;
+}
+.inputVideo:hover::before {
+  
+  opacity: 0.8;
+}
+.inputVideo:hover:active::before {
+  
+  opacity: 0.9;
+}
+
+.inputGIF::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.inputGIF {
+  width: 250px;
+  color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.inputGIF::before {
+
+  content: 'CHOOSE GIF';
+  color: white;
+  display: inline-block;
+  background: transparent;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 3px;
+  padding: 15px 16%;
+  outline: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  letter-spacing: 5px;
+  font-weight: 100;
+  font-size: 20px;
+}
+.inputGIF:hover::before {
+  
+  opacity: 0.8;
+}
+.inputGIF:hover:active::before {
+  
+  opacity: 0.9;
+}
+
+.divider {
+  margin: 20px 0px;
+  height: 1px;
+  width: 380px;
+  background-color: white;
+}
+
+.dividerLong {
+  margin: 20px 0px;
+  height: 1px;
+  width: 580px;
+  background-color: white;
+}
+

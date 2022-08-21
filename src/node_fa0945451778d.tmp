@@ -13,7 +13,6 @@ import './App.css';
 
 const ffmpeg = createFFmpeg({log: true})
 function App() {
-  //STATE_______________________________ 
   const [ready, setReady] = useState()
   const [start, setStart] = useState()
   const [end, setEnd] = useState()
@@ -22,9 +21,7 @@ function App() {
   const [loading, setLoading] = useState()
   const [gif, setGif] = useState()
   const [gifVideo, setGifVideo] = useState()
-  //_____________________________________
 
-  //FUNCTIONS____________________________________________________________________________________________________________________________________________________
   async function handleTrim(){
     ffmpeg.FS('writeFile', 'video.mp4', await fetchFile(video));
     await ffmpeg.run('-i', 'video.mp4', '-ss', `00:00:${start}`, '-to', `00:00:${end}`, 'videoTrimmed.mp4');
@@ -54,35 +51,15 @@ function App() {
   const load = async () => {
     await ffmpeg.load();
     setReady(true);
+
   }
-  //_______________________________________________________________________________________________________________________________________________________________
-  
+
   useEffect(()=> {
     load();
   },[])
 
   return (
     <div className="mainContainer">
-      {/* PREVIEW  */}
-      <div className="mediaContainer">
-        <div className="previewContainer">
-          <h2 style={{color: "white"}}>PREVIEW</h2>
-          <video src={URL.createObjectURL(new Blob([video], {"type:": "video/mp4"}))} id="myVideo" width="750" height="500"  
-            onLoadedMetadata={(event)=>{
-              //GETTING THE DURATION OF THE VIDEO:
-              let dur = document.getElementById("myVideo").duration
-              console.log("DURATION", dur)
-              setDuration(dur)
-            }}
-            controls
-          >
-          </video>                      
-          {gifVideo ? <img style={{margin: "8% 0%"}} width="400" height="200" src={URL.createObjectURL(new Blob([gifVideo], { type: 'image/gif' }))}></img> : null}
-        </div>
-      </div>
-
-
-      {/* EDITOR  */}
       <div className="editorContainer">
         <h2 style={{color: "white"}}>EDITOR</h2>
         <div className="dividerLong"></div>
@@ -127,6 +104,21 @@ function App() {
           convert2Gif()
         }}>CONVERT TO GIF</button>
       </div>
+
+      <div className="mediaContainer">
+      <video src={URL.createObjectURL(new Blob([video], {"type:": "video/mp4"}))} id="myVideo" width="750" height="500"  
+        onLoadedMetadata={(event)=>{
+          //GETTING THE
+          let dur = document.getElementById("myVideo").duration
+          console.log("DURATION", dur)
+          setDuration(dur)
+        }}
+        controls
+      >
+      </video>                      
+      {gifVideo ? <img width="400" height="200" src={URL.createObjectURL(new Blob([gifVideo], { type: 'image/gif' }))}></img> : null}
+      </div>
+
     </div>
   )
 }
